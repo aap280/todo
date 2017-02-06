@@ -1,3 +1,4 @@
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -17,6 +18,12 @@ var db = require('./config/db');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//Cross origin middleswasre
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Alow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(router);
@@ -25,6 +32,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(cookieParser());
 router.use(express.static(path.join(__dirname, 'public')));
+
 
 // app.use('/', routes);
 // app.use('/users', users);
